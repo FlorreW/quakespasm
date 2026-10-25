@@ -76,3 +76,18 @@ jobs:
 
           make
 
+          
+      - name: Verify CDI image
+        run: |
+          test -s Dreamcast/quakespasm.cdi
+          ls -lh Dreamcast/quakespasm.cdi
+
+      - name: Upload Dreamcast CDI
+        uses: actions/upload-artifact@v4
+        with:
+          name: quakespasm-dreamcast-cdi
+          path: Dreamcast/quakespasm.cdi
+          if-no-files-found: error
+          retention-days: 14
+
+
