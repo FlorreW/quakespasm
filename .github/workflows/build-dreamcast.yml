@@ -40,5 +40,12 @@ jobs:
         run: |
           cd /opt/toolchains/dc/kos/utils/kos-chain
           cp Makefile.dreamcast.cfg Makefile.cfg
+
+      - name: Build KallistiOS
+        run: |
+          cd /opt/toolchains/dc/kos
+          cp doc/environ.sh.sample environ.sh
+          . ./environ.sh
+          make
           make
 
