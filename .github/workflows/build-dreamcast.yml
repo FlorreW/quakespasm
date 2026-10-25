@@ -66,5 +66,13 @@ jobs:
           test -f Dreamcast/cd/id1/pak0.pak
           ls -lh Dreamcast/cd/id1/pak0.pak
 
+          
+      - name: Build QuakeSpasm and create CDI
+        run: |
+          source /opt/toolchains/dc/kos/environ.sh
+          chmod +x Quake/build_dreamcast.sh
+          ./Quake/build_dreamcast.sh
+
+
           make
 
