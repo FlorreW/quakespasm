@@ -55,5 +55,16 @@ jobs:
             https://github.com/KallistiOS/kos-ports.git \
             /opt/toolchains/dc/kos-ports
 
+        - name: Check Dreamcast build requirements
+        run: |
+          source /opt/toolchains/dc/kos/environ.sh
+          echo "KOS_BASE=$KOS_BASE"
+          command -v kos-cc
+          command -v mkdcdisc || true
+          test -f Quake/Makefile.dreamcast
+          test -f Quake/build_dreamcast.sh
+          test -f Dreamcast/cd/id1/pak0.pak
+          ls -lh Dreamcast/cd/id1/pak0.pak
+
           make
 
