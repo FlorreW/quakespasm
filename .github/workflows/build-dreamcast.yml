@@ -47,5 +47,13 @@ jobs:
           cp doc/environ.sh.sample environ.sh
           . ./environ.sh
           make
+
+          
+      - name: Checkout KallistiOS ports
+        run: |
+          git clone --depth 1 \
+            https://github.com/KallistiOS/kos-ports.git \
+            /opt/toolchains/dc/kos-ports
+
           make
 
