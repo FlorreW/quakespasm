@@ -56,6 +56,16 @@ jobs:
             https://github.com/KallistiOS/kos-ports.git \
             /opt/toolchains/dc/kos-ports
 
+            
+      - name: Install SH4ZAM
+        shell: bash
+        run: |
+          source /opt/toolchains/dc/kos/environ.sh
+          cd /opt/toolchains/dc/kos-ports/sh4zam
+          make install
+          find /opt/toolchains/dc/kos-ports -name shz_matrix.h
+
+
       - name: Check Dreamcast build requirements
         shell: bash
         run: |
