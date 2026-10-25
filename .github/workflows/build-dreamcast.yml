@@ -1,0 +1,43 @@
+
+name: Build QuakeSpasm Dreamcast CDI
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 350
+
+    steps:
+      - name: Install host dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            git build-essential make cmake \
+            gawk patch bzip2 texinfo gettext \
+            libgmp-dev libmpfr-dev libmpc-dev \
+            libelf-dev bison flex wget curl \
+            python3 pkg-config meson ninja-build \
+            libisofs-dev libjpeg-dev libpng-dev
+
+      - name: Checkout QuakeSpasm
+        uses: actions/checkout@v4
+
+      - name: Prepare KallistiOS
+        run: |
+          sudo mkdir -p /opt/toolchains/dc
+          sudo chown -R "$USER":"$USER" /opt/toolchains/dc
+          git clone --depth 1 \
+            https://github.com/KallistiOS/KallistiOS.git \
+            /opt/toolchains/dc/kos
+
+      - name: Check toolchain build instructions
+        run: |
+          cd /opt/toolchains/dc/kos
+          ls utils
+          ls utils/kos-chain
+          echo "KOS source downloaded. Toolchain setup is the next stage."
