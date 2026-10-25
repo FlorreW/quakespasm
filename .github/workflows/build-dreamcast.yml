@@ -35,11 +35,11 @@ jobs:
             https://github.com/KallistiOS/KallistiOS.git \
             /opt/toolchains/dc/kos
 
-      
       - name: Build Dreamcast toolchain
         run: |
           cd /opt/toolchains/dc/kos/utils/kos-chain
           cp Makefile.dreamcast.cfg Makefile.cfg
+          make
 
       - name: Build KallistiOS
         run: |
@@ -48,14 +48,13 @@ jobs:
           . ./environ.sh
           make
 
-          
       - name: Checkout KallistiOS ports
         run: |
           git clone --depth 1 \
             https://github.com/KallistiOS/kos-ports.git \
             /opt/toolchains/dc/kos-ports
 
-        - name: Check Dreamcast build requirements
+      - name: Check Dreamcast build requirements
         run: |
           source /opt/toolchains/dc/kos/environ.sh
           echo "KOS_BASE=$KOS_BASE"
@@ -63,20 +62,15 @@ jobs:
           command -v mkdcdisc || true
           test -f Quake/Makefile.dreamcast
           test -f Quake/build_dreamcast.sh
-          test -f Dreamcast/cd/id1/pak0.pak
+          test -s Dreamcast/cd/id1/pak0.pak
           ls -lh Dreamcast/cd/id1/pak0.pak
 
-          
       - name: Build QuakeSpasm and create CDI
         run: |
           source /opt/toolchains/dc/kos/environ.sh
           chmod +x Quake/build_dreamcast.sh
           ./Quake/build_dreamcast.sh
 
-
-          make
-
-          
       - name: Verify CDI image
         run: |
           test -s Dreamcast/quakespasm.cdi
@@ -89,5 +83,3 @@ jobs:
           path: Dreamcast/quakespasm.cdi
           if-no-files-found: error
           retention-days: 14
-
-
