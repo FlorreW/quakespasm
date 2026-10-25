@@ -35,9 +35,10 @@ jobs:
             https://github.com/KallistiOS/KallistiOS.git \
             /opt/toolchains/dc/kos
 
-      - name: Check toolchain build instructions
+      
+      - name: Build Dreamcast toolchain
         run: |
-          cd /opt/toolchains/dc/kos
-          ls utils
-          ls utils/kos-chain
-          echo "KOS source downloaded. Toolchain setup is the next stage."
+          cd /opt/toolchains/dc/kos/utils/kos-chain
+          cp Makefile.dreamcast.cfg Makefile.cfg
+          make
+
